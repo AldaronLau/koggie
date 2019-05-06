@@ -1,0 +1,4 @@
+target
+Cargo.lock
+opusfile-sys/libopusfile
+opus-sys/libopus
