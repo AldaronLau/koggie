@@ -324,6 +324,7 @@ dependencies = [
 name = "koggie_warp"
 version = "0.0.1"
 dependencies = [
+ "tokio 0.1.19 (registry+https://github.com/rust-lang/crates.io-index)",
  "warp 0.1.15 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
