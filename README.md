@@ -1,5 +1,5 @@
 # Koggie
-Ogg streaming broadcast &amp; listen application.
+Ogg streaming broadcast &amp; listen webserver.
 
 # Getting Started
 Koggie is coded in Rust, and uses cargo, so you'll need that first.  Note: Koggie needs to be recompiled specifically for your project each time a page changes (but don't worry, it's easy!😉️).
