@@ -6,7 +6,7 @@ use inotify::{
 };
 
 macro_rules! prefix {
-    () => ("/usr/share/koggie")
+    () => ("/usr/share/koggie/")
 }
 
 struct Context {
@@ -32,7 +32,8 @@ fn gen_page(context: &Context, markdown_filename: &str) {
     let mut page = r#"<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>"#.to_string();
     if markdown_input.starts_with('#') {
         if let Some(offset) = markdown_input.find('\n') {
-            page.push_str(markdown_input.split_at(offset).0);
+            let title = markdown_input.split_at(offset).0[1..].trim_start();
+            page.push_str(title);
             page.push_str(" | ");
         }
     }
@@ -80,19 +81,19 @@ fn gen_all(context: &Context) {
 
 pub fn watcher() {
     let context = Context {
-        page_title: std::fs::read_to_string(concat!(prefix!(), "/names/title.txt")).unwrap_or_else(|_| {
+        page_title: std::fs::read_to_string(concat!(prefix!(), "names/title.txt")).unwrap_or_else(|_| {
             eprintln!("Required file /names/title.txt not found.");
             std::process::exit(1)
         }),
-        head: std::fs::read_to_string(concat!(prefix!(), "/style/head.html")).unwrap_or_else(|_| {
+        head: std::fs::read_to_string(concat!(prefix!(), "style/head.html")).unwrap_or_else(|_| {
             eprintln!("Required file /style/head.html not found.");
             std::process::exit(1)
         }),
-        body: std::fs::read_to_string(concat!(prefix!(), "/style/body.html")).unwrap_or_else(|_| {
+        body: std::fs::read_to_string(concat!(prefix!(), "style/body.html")).unwrap_or_else(|_| {
             eprintln!("Required file /style/body.html not found.");
             std::process::exit(1)
         }),
-        foot: std::fs::read_to_string(concat!(prefix!(), "/style/foot.html")).unwrap_or_else(|_| {
+        foot: std::fs::read_to_string(concat!(prefix!(), "style/foot.html")).unwrap_or_else(|_| {
             eprintln!("Required file /style/foot.html not found.");
             std::process::exit(1)
         }),
@@ -102,9 +103,9 @@ pub fn watcher() {
 
     let mut inotify = Inotify::init().expect("Failed to initialize inotify");
 
-    inotify.add_watch(concat!(prefix!(), "/pages"), WatchMask::MODIFY | WatchMask::CREATE | WatchMask::DELETE).expect("Failed to add inotify watch");
-    inotify.add_watch(concat!(prefix!(), "/style"), WatchMask::MODIFY | WatchMask::CREATE | WatchMask::DELETE).expect("Failed to add inotify watch");
-    inotify.add_watch(concat!(prefix!(), "/names/title.txt"), WatchMask::MODIFY | WatchMask::CREATE | WatchMask::DELETE).expect("Failed to add inotify watch");
+    inotify.add_watch(concat!(prefix!(), "pages"), WatchMask::MODIFY | WatchMask::CREATE | WatchMask::DELETE).expect("Failed to add inotify watch");
+    inotify.add_watch(concat!(prefix!(), "style"), WatchMask::MODIFY | WatchMask::CREATE | WatchMask::DELETE).expect("Failed to add inotify watch");
+    inotify.add_watch(concat!(prefix!(), "names/title.txt"), WatchMask::MODIFY | WatchMask::CREATE | WatchMask::DELETE).expect("Failed to add inotify watch");
 
     println!("Watching current directory for activity...");
 

@@ -19,8 +19,10 @@ fn main() {
             std::process::exit(1);
         }
     );
-
-    println!("Running on IP {}", ip);
+    let mut ip_port = String::new();
+    ip_port.push_str(ip.trim_end());
+    ip_port.push_str(":8080");
+    println!("Running on {}…", ip_port);
 
     std::thread::spawn(watcher::watcher);
 
@@ -35,36 +37,27 @@ fn main() {
                 }
             )))
             .service(fs::Files::new("/res", "/usr/share/koggie/other").show_files_listing())
-            .service(fs::Files::new("/", "/usr/share/koggie/cache").index_file("home.html"))
+            .service(web::resource("/").route(
+                web::get().to(|_req: HttpRequest| {
+                    fs::NamedFile::open("/usr/share/koggie/cache/home.html")
+                }
+            )))
+            .service(web::resource("/{page}").route(
+                web::get().to(|_req: HttpRequest, path: web::Path<(String,)>| {
+                    fs::NamedFile::open(format!("/usr/share/koggie/cache/{}.html", path.0))
+                }
+            )))
             .default_service(
-                web::get().to(|_req: HttpRequest| { fs::NamedFile::open("/usr/share/koggie/cache/404.html") })
-
-/*                web::resource("")
-                    // all requests that are not `GET`
-                    .route(
-                        web::route()
-                            .guard(guard::Not(guard::Get()))
-                            .to(|| HttpResponse::MethodNotAllowed()),
-                ),*/
+                web::get().to(|_req: HttpRequest| {
+                    fs::NamedFile::open("/usr/share/koggie/cache/404.html")
+                })
             )
-/*            .service(web::resource("/").route(
-                web::get().to(|_req: HttpRequest| { load(gen_page("../site/home.md")) })))
-            .service(web::resource("/about").route(
-                web::get().to(|_req: HttpRequest| { load(gen_page("../site/about.md")) })))
-            .service(web::resource("/artists").route(
-                web::get().to(|_req: HttpRequest| { load(gen_page("../site/artists.md")) })))
-            .service(web::resource("/calendar").route(
-                web::get().to(|_req: HttpRequest| { load(gen_page("../site/calendar.md")) })))
-            .service(web::resource("/shows").route(
-                web::get().to(|_req: HttpRequest| { load(gen_page("../site/shows.md")) })))
-            .service(web::resource("/koggie").route(
-                web::get().to(|_req: HttpRequest| { load(gen_page("../site/koggie.md")) })))*/
     );
 
     server = if let Some(l) = listenfd.take_tcp_listener(0).unwrap() {
         server.listen(l).unwrap()
     } else {
-        server.bind(format!("10.0.0.159:8080")).unwrap()
+        server.bind(ip_port).unwrap()
     };
 
     server.run().unwrap();
