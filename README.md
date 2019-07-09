@@ -1,5 +1,5 @@
 # Koggie
-Ogg streaming broadcast &amp; listen application.
+Ogg streaming broadcast &amp; listen webserver.
 
 # Getting Started
 ## Install Koggie Webserver
