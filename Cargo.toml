@@ -10,5 +10,6 @@ actix-files = "0.1.3"
 listenfd = "0.3"
 opus = { path = "opus-rs" }
 cala = "0.1"
+futures = "0.1"
 inotify = "0.7"
 pulldown-cmark = { version = "0.5", default-features = false, features = ["simd"] }

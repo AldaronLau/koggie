@@ -3,6 +3,7 @@ use actix_files as fs;
 use listenfd::ListenFd;
 
 mod watcher;
+mod stream;
 
 /*fn load<'a>(html: String) -> impl Responder {
     HttpResponse::Ok()
@@ -29,6 +30,13 @@ fn main() {
     let mut listenfd = ListenFd::from_env();
     let mut server = HttpServer::new(move ||
         ActixApp::new()
+            .service(web::resource("/listen").route(
+                web::get().to(|_req: HttpRequest| {
+                    HttpResponse::Ok()
+                        .content_type("application/ogg")
+                        .streaming(stream::stream())
+                }
+            )))
             .service(web::resource("/robots.txt").route(
                 web::get().to(|_req: HttpRequest| {
                     HttpResponse::Ok()

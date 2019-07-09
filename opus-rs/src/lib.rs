@@ -304,9 +304,13 @@ impl Encoder {
 
 	/// Encode an Opus frame.
 	pub fn encode(&mut self, input: &[i16], output: &mut [u8]) -> Result<usize> {
-		let len = ffi!(opus_encode, self.ptr,
-			input.as_ptr(), len(input) / self.channels as c_int,
-			output.as_mut_ptr(), len(output));
+		let len = ffi!(opus_encode,
+            self.ptr, // encoder state
+			input.as_ptr(), // input
+            1920, // One of the allowed frame sizes.
+			output.as_mut_ptr(),
+            len(output)
+        );
 		Ok(len as usize)
 	}
 
