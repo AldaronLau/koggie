@@ -1,5 +1,5 @@
 # Welcome to KAUG!
-KAUG is the official radio station of <a href="http://www.augsburg.edu/">Augsburg University</a> in Minneapolis, Minnesota. We are headquartered in the Auggie’s Nest in the basement of the Christensen Center at Augsburg. KAUG streams 24 hours-a-day online.  <a href="about">Click here for more info about KAUG.</a>
+KAUG is the official radio station of [Augsburg University](https://www.augsburg.edu/) in Minneapolis, Minnesota. We are headquartered in the Auggie’s Nest in the basement of the Christensen Center at Augsburg. KAUG streams 24 hours-a-day online.  <a href="about">Click here for more info about KAUG.</a>
 <center><a href="https://www.instagram.com/kaugradio" style="display:inline-block;width:84px"><img width="64px" style="display:block;border-radius:15px;margin:0px;padding:0px;" src="res/instagram.png"></a><a href="https://twitter.com/RadioKAUG" style="display:inline-block;width:84px"><img width="64px" style="border-radius:15px;margin:0px;padding:0px;margin-right:10px" src="res/twitter.svg"><a href="https://www.facebook.com/kaugradio" style="display:inline-block;width:64px"><img width="64px" style="border-radius:15px;margin:0px;padding:0px;margin-right:10px" src="res/facebook.svg"></a></center>
 
 # Space 16, Session 1
