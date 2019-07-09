@@ -1,4 +1,4 @@
-use actix_web::{HttpServer, App as ActixApp, HttpRequest, HttpResponse, web, guard};
+use actix_web::{HttpServer, App as ActixApp, HttpRequest, HttpResponse, web};
 use actix_files as fs;
 use listenfd::ListenFd;
 

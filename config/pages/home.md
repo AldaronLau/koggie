@@ -7,4 +7,4 @@ KAUG is the official radio station of [Augsburg University](https://www.augsburg
 ### Spring 2019
 Here's a link to the video from our first in-studio session in Space 16!
 
-<a href="https://drive.google.com/file/d/1zML89VGzQYyg0w38km-BylwwunVCb5j0/view?usp=sharing">Space 16, Session 1</a>
+[Space 16, Session 1](https://drive.google.com/file/d/1zML89VGzQYyg0w38km-BylwwunVCb5j0/view?usp=sharing)

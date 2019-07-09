@@ -16,6 +16,34 @@ struct Context {
     foot: String,
 }
 
+fn add_links(input: &str) -> String {
+    let mut output = String::new();
+    for line in input.lines() {
+        let words = line.split(' ');
+        for word in words {
+            let is_email = word.contains('@') && word.contains('.');
+            let is_link = word.starts_with("http://") || is_email;
+            if is_link {
+                output.push('[');
+            }
+            output.push_str(word);
+            if is_link {
+                output.push_str("](");
+                output.push_str(if is_email {
+                    "mailto:"
+                } else {
+                    "https://"
+                });
+                output.push_str(word);
+                output.push(')');
+            }
+            output.push(' ');
+        }
+        output.push('\n');
+    }
+    output
+}
+
 fn gen_page(context: &Context, markdown_filename: &str) {
     let markdown_filename = std::path::Path::new(markdown_filename);
 
@@ -27,6 +55,7 @@ fn gen_page(context: &Context, markdown_filename: &str) {
         eprintln!("Couldn't read file '{}'?", markdown_filename.display());
         return;
     };
+    let markdown_input = &add_links(markdown_input);
     let parser = Parser::new_ext(markdown_input, Options::all());
      
     let mut page = r#"<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>"#.to_string();
