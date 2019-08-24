@@ -1,7 +1,7 @@
 [package]
 name = "koggie"
 version = "0.0.1"
-authors = ["Jeron Aldaron Lau <jeronaldaron@gmail.com>"]
+authors = ["Jeron Aldaron Lau <jeronlau@plopgrizzly.com>"]
 edition = "2018"
 
 [dependencies]
