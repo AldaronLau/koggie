@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+  const handleSuccess = function(stream) {
+    const context = new AudioContext();
+    const source = context.createMediaStreamSource(stream);
+    const processor = context.createScriptProcessor(1024, 1, 1);
+
+    source.connect(processor);
+    processor.connect(context.destination);
+
+    processor.onaudioprocess = function(e) {
+      for(var i = 0; i < e.inputBuffer.numberOfChannels; i++) {
+        // Do something with the data, e.g. convert it to WAV
+        console.log(e.inputBuffer.getChannelData(i));
+      }
+    };
+  };
+
+  navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(handleSuccess);
+</script>
+</body>
