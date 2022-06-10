@@ -1,9 +1,0 @@
-[package]
-name = "koggie-server"
-version = "0.1.0"
-authors = ["Jeron Aldaron Lau <jeronaldaron@gmail.com>"]
-edition = "2018"
-
-[dependencies]
-opus = { path = "../opus-rs" }
-cala = "0.1"
